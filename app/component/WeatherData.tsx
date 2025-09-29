@@ -1,4 +1,5 @@
 'use client'
+import { span } from 'framer-motion/client';
 import React, { use, useEffect, useState } from 'react'
 
 
@@ -141,11 +142,11 @@ const WeatherChart = ({weather , city}:Props) => {
    return (
     <>
        {/* title + description */}
-   <div className=' pl-7'>
+   <div className=' pl-7 text-white'>
     {weather && (
         <div>
             <div>
-               <h1 className='text-7xl font-bold pb-3' >
+               <h1 className='text-7xl font-bold-md pb-3' >
                 {getWeatherDescription(weather.daily.weathercode[0]).title }
             </h1>
            <h2 className='text-3xl pl-3 pb-3'>
@@ -156,14 +157,31 @@ const WeatherChart = ({weather , city}:Props) => {
             </h3>
             </div>
            
-       <div>
-  <h3 className='pl-3  pb-2 pt-[7%] text-3xl font-bold'>
-            {temp !== null ? `${temp > 0 ? "+" : "-"}${temp}°C` : "Loading..."}
-          </h3>
+  <div>
+  <h3 className="pl-3 pb-2 pt-[7%] text-6xl font-bold text-white">
+    {temp !== null ? (
+      <div className="flex items-center">
+        {/* Sign */}
+        <div className="text-2xl font-extralight mr-1">
+          {temp > 0 ? "+" : "-"}
+        </div>
+
+        {/* Temperature */}
+        <div className="text-7xl font-bold ">
+          {Math.abs(temp)}
+          <span className='font-extralight'>°</span>
+        </div>
+      </div>
+    ) : (
+      "Loading..."
+    )}
+  </h3>
 </div>
+      <div className='flex flex-row  items-center'>
 
-
-       <h3 className='pl-3 text-xl'>{city}</h3>
+       <img className='w-3 h-4 object-cover ml-4 mr-1 ' src="pin.png" alt="" />
+       <h3 className='text-xl font-normal  '>{city}</h3>
+      </div>
         </div>
 
     )}
@@ -177,4 +195,5 @@ const WeatherChart = ({weather , city}:Props) => {
 }
 
 export default WeatherChart
+
 

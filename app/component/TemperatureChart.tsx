@@ -54,8 +54,8 @@ const pointRadii = weatherCode.map((_, i) => (i === 0 ? 8 : 18));
 
 
   // Customize today's circle color
-  const pointBackgroundColors = weatherCode.map((_, i) => (i === 0 ? "#ff4d6d" : "transparent")); 
-  const pointBorderColors = weatherCode.map((_, i) => (i === 0 ? "#ff4d6d" : "transparent"));
+  const pointBackgroundColors = weatherCode.map((_, i) => (i === 0 ? "#FFFFFF  " : "transparent")); 
+  const pointBorderColors = weatherCode.map((_, i) => (i === 0 ? "#FFFFFF " : "transparent"));
 
   const chartData = {
     labels: dates.map((date: any) =>
@@ -65,8 +65,9 @@ datasets: [
   {
     label: "",
     data: tempMax,
-    borderColor: "rgba(255, 99, 132, 0.8)",
-    backgroundColor: "rgba(255, 99, 132, 0.2)",
+    borderColor: "#FFFFFF",
+    backgroundColor: "#FFFFFF",
+     borderWidth: 1,
     tension: 0.4,
     fill: true,
     pointStyle: pointStyles,          // emoji or "circle"
@@ -80,7 +81,7 @@ const options: ChartOptions<"line"> = {
   responsive: true,
   maintainAspectRatio: false,
   layout: {
-    padding: { top: 60 },
+    padding: { top: 70 },
   },
   animation: {
     duration: 2000,          // total animation time
@@ -99,30 +100,32 @@ const options: ChartOptions<"line"> = {
       from: 0,               // smoothly grow upwards
     },
   },
-  plugins: {
-    legend: { display: false },
-    datalabels: {
-      align: "top",
-      anchor: "end",
-      formatter: (value: number, ctx: any) => {
-        const day = dates[ctx.dataIndex];
-        const weekday = new Date(day).toLocaleDateString("en-US", {
-          weekday: "short",
-        });
-        return `${weekday}\n${Math.round(value)}°`;
-      },
-      color: "#3b3839",
-      font: { size: 15, weight: 400 },
+plugins: {
+  legend: { display: false },
+  datalabels: {
+    align: "top",
+    anchor: "end",
+    formatter: (value: number, ctx: any) => {
+      const day = new Date(dates[ctx.dataIndex]).toLocaleDateString("en-US", {
+        weekday: "short",
+      });
+      return `${day}\n${Math.round(value)}°`; // one label, two lines
     },
-    tooltip: {
-      enabled: true,
-      backgroundColor: "rgba(0,0,0,0.7)",
-      titleFont: { size: 13, weight: "bold" as const },
-      bodyFont: { size: 12, weight: "normal" as const },
-      padding: 8,
-      cornerRadius: 8,
-      displayColors: false,
+    color: "#fff",  // single color
+    font: {
+      size: 14,     // will apply to both lines
+      weight: "bold",
     },
+  },
+  tooltip: {
+    enabled: true,
+    backgroundColor: "rgba(0,0,0,0.7)",
+    titleFont: { size: 20, weight: "bold" as const },
+    bodyFont: { size: 12, weight: "normal" as const },
+    padding: 8,
+    cornerRadius: 8,
+    displayColors: false,
+  },
   },
   scales: {
     y: { display: false, grid: { display: false }, border: { display: false } },

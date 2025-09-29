@@ -4,18 +4,28 @@ import { Sunrise, Sunset } from "lucide-react";
 
 const SunArcCard = ({ sunrise, sunset }: { sunrise: string; sunset: string }) => {
   return (
-    <div className="w-72 h-45 p-4 rounded-xl backdrop-blur-md bg-white/10 border border-white/20 shadow-lg text-white pb-1 flex flex-col justify-between">
+ <div className="w-74 h-48 p-3  backdrop-blur-md bg-white/10 border rounded-2xl  border-white/20 shadow-lg flex flex-col justify-between">
       {/* Top Labels */}
-      <div className="flex justify-between text-sm">
-        <div className="flex items-center gap-1">
+      <div className="flex  justify-between text-sm">
+        <div className="flex flex-col items-center gap-1">
+          <div className="flex flex-row justify-center items-center">
           <Sunrise className="w-3 h-3 text-yellow-800" />
-          <span className="text-gray-400">Sunrise</span>
-          <span className="opacity-80">{sunrise}</span>
+          <span className="text-white text-sm">Sunrise</span>
+          </div>
+          <div>
+          <span className="opacity-80 text-white text-sm">{sunrise}</span>
+          </div>
         </div>
-        <div className="flex items-center gap-1">
-          <span className="opacity-80">{sunset}</span>
-          <span className="text-gray-400">Sunset</span>
+        <div className="flex flex-col items-center gap-1">
+           <div className="flex flex-row justify-center items-center">
+
           <Sunset className="w-3 h-3 text-orange-800" />
+          <span className="text-white text-sm">Sunset</span>
+          </div>
+          <div>
+          <span className="opacity-80 text-sm text-white">{sunset}</span>
+          </div>
+         
         </div>
       </div>
 
@@ -25,7 +35,7 @@ const SunArcCard = ({ sunrise, sunset }: { sunrise: string; sunset: string }) =>
           {/* Arc Path */}
           <path
             d="M 10 90 A 80 80 0 0 1 190 90"
-            stroke="#B3B3B3"
+            stroke="#ffffff"
             strokeWidth="1"
             fill="none"
             strokeDasharray="3 3"

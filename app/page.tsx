@@ -78,11 +78,11 @@ export default function HomePage() {
 
   const selection = city
   return (
-    <div className="p-4 w-full" >
+    <div className="p-4 w-full min-h-screen bg-gray-300 px-4" >
       <div className="flex flex-row justify-between items-center">
        <div className="flex flex-row  items-center">
-        <img className="h-9 w-9 object-cover bg-black" src="/weatherIcon.png" alt="" />
-        <p>Weather Forecast</p>
+        <img className="h-9 w-9 object-cover pr-1" src="/weatherIcon.png" alt="" />
+        <p className="text-white">Weather Forecast</p>
        </div>
 
       {/* Search Bar */}
@@ -107,10 +107,10 @@ export default function HomePage() {
 <div>
   {!weather || message ? (
     <div>
-      <p>Loading...</p>
+      <p className='text-white'>Loading...</p>
     </div>
   ) : (
-    <div>
+    <div className="text-white">
       <p>
         {weather.daily.time.length
           ? new Date(weather.daily.time[0]).toLocaleDateString("en-US", {
@@ -138,7 +138,7 @@ export default function HomePage() {
        <WeatherData weather={weather} city={selection} />
           <div className="mr-4 ">
    <div className="mb-6  mt-[20%]">
-            <WindChart windspeed={weather.daily.windspeed_10m_max[0]} />
+            <WindChart windspeed={weather.daily.windspeed_10m_max[0]} windspeedData={weather.hourly.windspeed_10m} />
           </div>
           <div className="my-6">
             <SunArcCard
@@ -205,3 +205,6 @@ export default function HomePage() {
     </div>
   );
 }
+
+
+
