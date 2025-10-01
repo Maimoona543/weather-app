@@ -39,7 +39,7 @@ export default function HomePage() {
 
   async function fetchWeather(cityName: string) {
     setMessage(""); // reset previous message
-    setWeather(null);
+    // setWeather(null);
 
     try {
       const geoRes = await fetch(
@@ -65,10 +65,10 @@ export default function HomePage() {
         return;
       }
 
-      setWeather(data);
-    } catch {
-      setMessage("City not found");
-    }
+        setWeather(data); 
+  } catch {
+    setMessage("City not found");
+  }
   }
 
   useEffect(() => {
@@ -76,9 +76,42 @@ export default function HomePage() {
 
   }, []);
 
+
+  function getWeatherVideo(code: number) {
+  if (code <= 1) return "/clear-sky.mp4";
+  if (code === 2) return "/partly-cloudy.mp4";
+  if (code === 3) return "/cloudy.mp4";
+  if (code >= 45 && code <= 48) return "/foggy.mp4";
+  if (code >= 51 && code <= 67) return "/heavy-drizzle.mp4";
+  if (code >= 71 && code <= 77) return "/heavy-snow.mp4";
+  if (code >= 95) return "/81.mp4";
+  return "/clear-sky.mp4";
+}
+
   const selection = city
   return (
-    <div className="p-4 w-full min-h-screen bg-gray-300 px-4" >
+<div className="relative w-full min-h-screen px-1 py-3">
+ <AnimatePresence mode="wait">
+  <motion.video
+    key={getWeatherVideo(weather?.daily.weathercode[0] ?? 0)} // 👈 ensures re-render on change
+    autoPlay
+    muted
+    loop
+    playsInline
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 1.2, ease: "easeInOut" }}
+    className="absolute inset-0 w-full h-full object-cover -z-10"
+  >
+    <source
+      src={getWeatherVideo(weather?.daily.weathercode[0] ?? 0)}
+      type="video/mp4"
+    />
+  </motion.video>
+</AnimatePresence>
+
+
       <div className="flex flex-row justify-between items-center">
        <div className="flex flex-row  items-center">
         <img className="h-9 w-9 object-cover pr-1" src="/weatherIcon.png" alt="" />
@@ -86,17 +119,22 @@ export default function HomePage() {
        </div>
 
       {/* Search Bar */}
-      <div className=" flex gap-2 mb-4 border rounded-3xl p-1 h-13 w-[73%]" >
+      <div className=" flex gap-2  mb-4 items-center border border-white rounded-3xl  p-1 lg:h-13 h-11  w-[59%] lg:w-[65%] xl:w-[73%]" >
+        <img className="w-5 ml-1 h-5 object-cover" src="magnifying-glass.png" alt="" />
         <input
+        
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Enter city name"
-          className="border-none p-2 w-[88%] rounded-4xl"
+          className="border-none p-1 w-[88%] rounded-4xl outline-none focus:ring-0 focus:outline-none"
         />
         <button
-          onClick={() =>{ fetchWeather(input); setCity(input)}}
-          className="bg-blue-500 text-white text-lg px-7 py-2 rounded-4xl hover:bg-blue-300 "
+             onClick={() => {
+    setCity(input);      // update the label "Weather in Paris"
+    fetchWeather(input); // fetch new weather only on search
+  }}
+          className="btn-bg text-white  text-lg px-7 py-1  lg:py-2 rounded-4xl hover:bg-blue-300 "
         >
           Search
         </button>
@@ -104,7 +142,7 @@ export default function HomePage() {
 
       {/* day/date */}
    
-<div>
+<div className="p-2">
   {!weather || message ? (
     <div>
       <p className='text-white'>Loading...</p>
@@ -157,7 +195,7 @@ export default function HomePage() {
    
        
 
-<div className="ml-11 my-4 text-xl font-semibold ">
+<div className="ml-11 mt-4  mb-2 text-xl font-semibold ">
   <button className="mr-4 border rounded-3xl px-7 py-2" onClick={() => setDaily(true)}>Daily</button>
   <button className=" border rounded-3xl px-7 py-2" onClick={() => setDaily(false)}>Hourly</button>
 </div>
@@ -205,6 +243,5 @@ export default function HomePage() {
     </div>
   );
 }
-
 
 

@@ -146,13 +146,13 @@ const WeatherChart = ({weather , city}:Props) => {
     {weather && (
         <div>
             <div>
-               <h1 className='text-7xl font-bold-md pb-3' >
+               <h1 className='lg:text-7xl text-6xl font-bold-md pb-3' >
                 {getWeatherDescription(weather.daily.weathercode[0]).title }
             </h1>
-           <h2 className='text-3xl pl-3 pb-3'>
+           <h2 className='lg:text-3xl text-2xl  pl-3 pb-3'>
             {getWeatherDescription(weather.daily.weathercode[0]).sub}
            </h2>
-            <h3 className='text-lg w-[55%] pl-3 leading-none'>
+            <h3 className='lg:text-lg text-md w-[55%] pl-3 leading-none'>
                 {getWeatherDescription(weather.daily.weathercode[0]).desc}
             </h3>
             </div>
@@ -162,7 +162,7 @@ const WeatherChart = ({weather , city}:Props) => {
     {temp !== null ? (
       <div className="flex items-center">
         {/* Sign */}
-        <div className="text-2xl font-extralight mr-1">
+        <div className="text-2xl  font-extralight mr-1">
           {temp > 0 ? "+" : "-"}
         </div>
 

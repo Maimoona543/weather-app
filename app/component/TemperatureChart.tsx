@@ -80,8 +80,15 @@ datasets: [
 const options: ChartOptions<"line"> = {
   responsive: true,
   maintainAspectRatio: false,
-  layout: {
-    padding: { top: 70 },
+  
+    layout: {
+  padding: {
+    left: 35,   
+    right: 26,
+    top: 75,
+    bottom: 10,
+  },
+
   },
   animation: {
     duration: 2000,          // total animation time
@@ -102,20 +109,34 @@ const options: ChartOptions<"line"> = {
   },
 plugins: {
   legend: { display: false },
-  datalabels: {
-    align: "top",
-    anchor: "end",
-    formatter: (value: number, ctx: any) => {
-      const day = new Date(dates[ctx.dataIndex]).toLocaleDateString("en-US", {
-        weekday: "short",
-      });
-      return `${day}\n${Math.round(value)}°`; // one label, two lines
+ datalabels: {
+  align: "top",
+  anchor: "end",
+  labels: {
+    day: {
+      formatter: (_: any, ctx: any) => {
+        const day = new Date(dates[ctx.dataIndex]).toLocaleDateString("en-US", {
+          weekday: "long",
+        });
+        return day;
+      },
+      font: { size: 12, weight: 400 },
+      color: "#fff",
+       offset: 15,
+       
     },
-    color: "#fff",  // single color
-    font: {
-      size: 14,     // will apply to both lines
-      weight: "bold",
+    temp: {
+      formatter: (value: number) => `${Math.round(value)}°`,
+      font: { size: 20, weight: "bold" },
+      color: "#fff",
+       offset: -10,
+       padding:{
+        bottom: 12,
+       }
     },
+  },
+
+
   },
   tooltip: {
     enabled: true,
@@ -135,10 +156,11 @@ plugins: {
 
 
   return (
-    <div className="w-full h-65 p-4  backdrop-blur-md  ">
+    <div className="w-full h-74 p-1 border rounded-lg p-4 shadow-md bg-transparent border-white/22 ">
       <Line data={chartData} options={options} />
     </div>
   );
 };
 
 export default TemperatureChart;
+
