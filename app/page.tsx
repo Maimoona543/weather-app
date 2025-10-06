@@ -31,11 +31,13 @@ interface WeatherData {
 }
 
 export default function HomePage() {
-  const [input,setInput] = useState("paris")
+  const [input,setInput] = useState("")
   const [city, setCity] = useState("Paris");
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [message, setMessage] = useState<string>("");
   const [daily,setDaily] = useState(true)
+    const [bgCode, setBgCode] = useState<number>(0);
+
 
   async function fetchWeather(cityName: string) {
     setMessage(""); // reset previous message
@@ -64,8 +66,9 @@ export default function HomePage() {
         setMessage("City not found");
         return;
       }
-
+   
         setWeather(data); 
+        setBgCode(data.daily.weathercode[0]);
   } catch {
     setMessage("City not found");
   }
@@ -93,7 +96,7 @@ export default function HomePage() {
 <div className="relative w-full min-h-screen px-1 py-3">
  <AnimatePresence mode="wait">
   <motion.video
-    key={getWeatherVideo(weather?.daily.weathercode[0] ?? 0)} // 👈 ensures re-render on change
+   key={bgCode}    
     autoPlay
     muted
     loop
@@ -114,27 +117,27 @@ export default function HomePage() {
 
       <div className="flex flex-row justify-between items-center">
        <div className="flex flex-row  items-center">
-        <img className="h-9 w-9 object-cover pr-1" src="/weatherIcon.png" alt="" />
-        <p className="text-white">Weather Forecast</p>
+        <img className="sm:h-9 sm:w-9 h-7 w-7 object-cover pr-1" src="/weatherIcon.png" alt="" />
+        <p className="text-white  ">Weather Forecast</p>
        </div>
 
       {/* Search Bar */}
-      <div className=" flex gap-2  mb-4 items-center border border-white rounded-3xl  p-1 lg:h-13 h-11  w-[59%] lg:w-[65%] xl:w-[73%]" >
-        <img className="w-5 ml-1 h-5 object-cover" src="magnifying-glass.png" alt="" />
+      <div className=" flex gap-2  mb-4 items-center border border-white rounded-3xl  p-1 lg:h-13 h-11 w-[50%] sm:w-[59%] lg:w-[65%] xl:w-[73%]" >
+        <img className="sm:w-5 ml-1 sm:h-5 w-4 h-4 object-cover" src="magnifying-glass.png" alt="" />
         <input
         
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Enter city name"
-          className="border-none p-1 w-[88%] rounded-4xl outline-none focus:ring-0 focus:outline-none"
+          className="border-none p-1 sm:w-[88%] w-[80%] rounded-4xl outline-none focus:ring-0 focus:outline-none"
         />
         <button
              onClick={() => {
     setCity(input);      // update the label "Weather in Paris"
     fetchWeather(input); // fetch new weather only on search
   }}
-          className="btn-bg text-white  text-lg px-7 py-1  lg:py-2 rounded-4xl hover:bg-blue-300 "
+          className="btn-bg text-white  sm:text-lg sm:px-7  sx:px[2] px-[9%]    text-md  py-1  lg:py-2 rounded-4xl"
         >
           Search
         </button>
@@ -148,7 +151,7 @@ export default function HomePage() {
       <p className='text-white'>Loading...</p>
     </div>
   ) : (
-    <div className="text-white">
+    <div className="text-white sm:text-sm text-[12px]">
       <p>
         {weather.daily.time.length
           ? new Date(weather.daily.time[0]).toLocaleDateString("en-US", {
@@ -172,13 +175,19 @@ export default function HomePage() {
       {weather && !message && (
         <>
     
-        <div className="flex flex-row justify-between items-center \">
-       <WeatherData weather={weather} city={selection} />
-          <div className="mr-4 ">
-   <div className="mb-6  mt-[20%]">
+        <div className="flex flex-col sm:flex-row justify-between mt-15">
+          <div>
+       <WeatherData  weather={weather} city={selection} time = {weather.hourly.time[0]} />
+          </div>
+          <div className="mr-4">
+            <div className="w-70 text-center mb-2 ">
+              <p className="sm:text-md text-sm ml-6 leading-none text-white font-md  pb-2">Get real-time weather updates with live temperature, wind, and sky conditions.</p>
+            </div>
+            <div className="flex flex-row sm:flex-col justify-between">
+   <div className="mb-6 ">
             <WindChart windspeed={weather.daily.windspeed_10m_max[0]} windspeedData={weather.hourly.windspeed_10m} />
           </div>
-          <div className="my-6">
+          <div className="sm:my-6">
             <SunArcCard
               sunrise={new Date(weather.daily.sunrise[0]).toLocaleTimeString([], {
                 hour: "2-digit",
@@ -190,6 +199,7 @@ export default function HomePage() {
               })}
             />
           </div>
+            </div>
           </div>
         </div>
    
@@ -243,5 +253,4 @@ export default function HomePage() {
     </div>
   );
 }
-
 

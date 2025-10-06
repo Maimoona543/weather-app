@@ -156,11 +156,14 @@ plugins: {
 
 
   return (
-    <div className="w-full h-74 p-1 border rounded-lg p-4 shadow-md bg-transparent border-white/22 ">
+    <div className="w-full h-74 p-1 border rounded-lg `shadow-md bg-transparent border-white/22 ">
       <Line data={chartData} options={options} />
     </div>
   );
 };
 
-export default TemperatureChart;
+// react.memo ensures that it only rerenders onlt if props chnages
+export default React.memo(TemperatureChart); 
+
+
 

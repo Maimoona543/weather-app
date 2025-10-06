@@ -28,7 +28,7 @@ const WindChart = ({ windspeed , windspeedData} : Props) => {
         data: windspeedData, // sample line data
         borderColor: "#ffffff",
         borderWidth: 1,
-        fill: false,
+        fill: true,
         tension: 0.4, // smooth curve
         pointRadius: 0, // hide points
       },
@@ -58,15 +58,15 @@ const options = {
 };
 
   return (
- <div className="lg:w-74 w-65 lg:h-48 h-45 p-3  backdrop-blur-md border rounded-2xl bg-transparent   border-white/23 shadow-lg flex flex-col justify-between">
+ <div className="lg:w-74 sm:w-65 w-39  h-38 lg:h-48 sm:h-45 p-3  backdrop-blur-md border rounded-2xl bg-transparent   border-white/23 shadow-lg flex flex-col justify-between">
   {/* Top Section */}
   <div className="flex justify-between items-center text-white">
     <div className="flex items-center gap-1">
-      <Wind className="w-5 h-5" />
-      <img className="w-8 h-4 ml-[-1.6rem] object-cover" src="wind.png" alt="" />
-      <span className="text-sm font-semibold text-white">Wind status</span>
+      <Wind className="sm:w-5 sm:h-5 w-3 h-3" />
+      <img className="sm:w-8 sm:h-4 w-4 h-2 ml-[-1.6rem] object-cover" src="wind.png" alt="" />
+      <span className="sm:text-sm text-[10px] font-semibold text-white">Wind status</span>
     </div>
-    <span className="text-lg  text-white">{windspeed.toFixed(2)} km/h</span>
+    <span className="sm:text-lg text-[10px] text-white">{windspeed.toFixed(2)} km/h</span>
   </div>
 
   {/* Line Chart */}

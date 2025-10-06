@@ -4,23 +4,23 @@ import { Sunrise, Sunset } from "lucide-react";
 
 const SunArcCard = ({ sunrise, sunset }: { sunrise: string; sunset: string }) => {
   return (
- <div className="lg:w-74 w-65 lg:h-48 h-45 p-3 backdrop-blur-md bg-transparent border-white/23 shadow-lg border rounded-2xl flex flex-col justify-between">
+ <div className="lg:w-74 sm:w-65 w-39 h-38  lg:h-48 sm:h-45 p-3 backdrop-blur-md bg-transparent border-white/23 shadow-lg border rounded-2xl flex flex-col justify-between">
   {/* Top Labels */}
   <div className="flex justify-between text-sm">
     <div className="flex flex-col items-center gap-1">
       <div className="flex flex-row justify-center items-center">
         <Sunrise className="w-3 h-3 text-yellow-800" />
-        <span className="text-white text-sm ml-1">Sunrise</span>
+        <span className="text-white sm:text-sm text-[12px]  ml-1">Sunrise</span>
       </div>
-      <span className="opacity-80 text-white text-sm">{sunrise}</span>
+      <span className="opacity-80 text-white sm:text-sm text-[12px]">{sunrise}</span>
     </div>
 
     <div className="flex flex-col items-center gap-1">
       <div className="flex flex-row justify-center items-center">
         <Sunset className="w-3 h-3 text-orange-800" />
-        <span className="text-white text-sm ml-1">Sunset</span>
+        <span className="text-white sm:text-sm text-[12px] ml-1">Sunset</span>
       </div>
-      <span className="opacity-80 text-white text-sm">{sunset}</span>
+      <span className="opacity-80 text-white sm:text-sm text-[12px]">{sunset}</span>
     </div>
   </div>
 

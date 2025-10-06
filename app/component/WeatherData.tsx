@@ -6,6 +6,7 @@ import React, { use, useEffect, useState } from 'react'
 interface Props{
     weather:any;
     city:string;
+    time:string;
 }
 
 function getWeatherDescription(code: number) {
@@ -130,35 +131,35 @@ return map[code] || {
 };
 }
 
-const WeatherChart = ({weather , city}:Props) => {
+const WeatherChart = ({weather , city, time}:Props) => {
    const [temp, setTemp] = useState<number | null>(null);
 
   useEffect(() => {
     if (weather?.daily?.temperature_2m_max) {
-      setTemp(Math.floor(weather.daily.temperature_2m_max[0]));
+      setTemp(Math.floor(weather.hourly.temperature_2m[0]));
     }
   }, [weather]);
 
    return (
     <>
        {/* title + description */}
-   <div className=' pl-7 text-white'>
+   <div className='sm:pl-7 pl-2 text-white'>
     {weather && (
         <div>
             <div>
-               <h1 className='lg:text-7xl text-6xl font-bold-md pb-3' >
+               <h1 className='lg:text-7xl text-4xl sm:text-6xl font-bold-md sm:pb-3 pb-1' >
                 {getWeatherDescription(weather.daily.weathercode[0]).title }
             </h1>
-           <h2 className='lg:text-3xl text-2xl  pl-3 pb-3'>
+           <h2 className='lg:text-3xl md:text-2xl  text-xl sm:pl-3 sm:pb-3 pb-1'>
             {getWeatherDescription(weather.daily.weathercode[0]).sub}
            </h2>
-            <h3 className='lg:text-lg text-md w-[55%] pl-3 leading-none'>
+            <h3 className='lg:text-lg sm:text-md text-sm  sm:w-[55%] w-[60%] sm:pl-3 leading-none '>
                 {getWeatherDescription(weather.daily.weathercode[0]).desc}
             </h3>
             </div>
            
   <div>
-  <h3 className="pl-3 pb-2 pt-[7%] text-6xl font-bold text-white">
+  <h3 className="sm:pl-3 pb-2 pt-[7%] sm:text-6xl text-xl font-bold text-white">
     {temp !== null ? (
       <div className="flex items-center">
         {/* Sign */}
@@ -167,7 +168,7 @@ const WeatherChart = ({weather , city}:Props) => {
         </div>
 
         {/* Temperature */}
-        <div className="text-7xl font-bold ">
+        <div className="sm:text-7xl  text-5xl font-bold ">
           {Math.abs(temp)}
           <span className='font-extralight'>°</span>
         </div>
@@ -179,9 +180,9 @@ const WeatherChart = ({weather , city}:Props) => {
 </div>
       <div className='flex flex-row  items-center'>
 
-       <img className='w-3 h-4 object-cover ml-4 mr-1 ' src="pin.png" alt="" />
-       <h3 className='text-xl font-normal  '>{city}</h3>
-      </div>
+       <img className='w-3 h-4 object-cover sm:ml-4 mr-1 ' src="pin.png" alt="" />
+       <h3 className='text-xl font-normal'>{city}</h3>
+             </div>
         </div>
 
     )}
@@ -195,5 +196,6 @@ const WeatherChart = ({weather , city}:Props) => {
 }
 
 export default WeatherChart
+
 
 
