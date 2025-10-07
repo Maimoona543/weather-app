@@ -156,7 +156,7 @@ plugins: {
 
 
   return (
-    <div className="w-full h-74 p-1 border rounded-lg `shadow-md bg-transparent border-white/22 ">
+    <div className="w-full h-75 p-1 rounded-lg `shadow-md bg-transparent border-white/22 ">
       <Line data={chartData} options={options} />
     </div>
   );

@@ -6,8 +6,11 @@ import SunArcCard from "./component/Sun";
 import TemperatureChart from "./component/TemperatureChart";
 import Detail from "./component/Detail";
 import { motion, AnimatePresence } from "framer-motion";
+import { div } from "framer-motion/client";
 
 
+
+// fetching data for charts... 
 interface WeatherData {
   daily: {
     time: string[];
@@ -26,9 +29,14 @@ interface WeatherData {
     windspeed_10m: number[];
     winddirection: number[];
   };
-
- 
 }
+
+
+// interface Data {
+//   time:
+// }
+
+
 
 export default function HomePage() {
   const [input,setInput] = useState("")
@@ -93,27 +101,56 @@ export default function HomePage() {
 
   const selection = city
   return (
-<div className="relative w-full min-h-screen px-1 py-3">
- <AnimatePresence mode="wait">
-  <motion.video
-   key={bgCode}    
-    autoPlay
-    muted
-    loop
-    playsInline
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    transition={{ duration: 1.2, ease: "easeInOut" }}
-    className="absolute inset-0 w-full h-full object-cover -z-10"
-  >
-    <source
-      src={getWeatherVideo(weather?.daily.weathercode[0] ?? 0)}
-      type="video/mp4"
-    />
-  </motion.video>
-</AnimatePresence>
+<div className="relative w-full min-h-screen flex justify-center items-center overflow-hidden">
 
+  {/* Blurred background video */}
+  <AnimatePresence mode="popLayout">
+    {weather && (
+      <motion.video
+        key={bgCode}
+        autoPlay
+        muted
+        loop
+        playsInline
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 1.5, ease: "easeInOut" }}
+        className="absolute inset-0 w-full h-full object-cover blur-md -z-10"
+      >
+        <source
+          src={getWeatherVideo(weather?.daily.weathercode[0] ?? 0)}
+          type="video/mp4"
+        />
+      </motion.video>
+    )}
+  </AnimatePresence>
+
+  {/* Main content card */}
+  <div className="relative w-[85%] my-4 pt-2 h-full rounded-2xl overflow-hidden ">
+    <AnimatePresence mode="popLayout">
+      {weather && (
+        <motion.video
+          key={bgCode}
+          autoPlay
+          muted
+          loop
+          playsInline
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.5, ease: "easeInOut" }}
+          className="absolute inset-0 w-full h-full object-cover rounded-2xl -z-10"
+        >
+          <source
+            src={getWeatherVideo(weather?.daily.weathercode[0] ?? 0)}
+            type="video/mp4"
+          />
+        </motion.video>
+      )}
+    </AnimatePresence>
+
+  
 
       <div className="flex flex-row justify-between items-center">
        <div className="flex flex-row  items-center">
@@ -122,7 +159,7 @@ export default function HomePage() {
        </div>
 
       {/* Search Bar */}
-      <div className=" flex gap-2  mb-4 items-center border border-white rounded-3xl  p-1 lg:h-13 h-11 w-[50%] sm:w-[59%] lg:w-[65%] xl:w-[73%]" >
+      <div className=" flex gap-2  items-center border border-white rounded-3xl  p-1 lg:h-13 h-11 w-[50%] sm:w-[59%] lg:w-[65%] xl:w-[73%]" >
         <img className="sm:w-5 ml-1 sm:h-5 w-4 h-4 object-cover" src="magnifying-glass.png" alt="" />
         <input
         
@@ -130,14 +167,14 @@ export default function HomePage() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Enter city name"
-          className="border-none p-1 sm:w-[88%] w-[80%] rounded-4xl outline-none focus:ring-0 focus:outline-none"
+          className="border-none p-1 text-white sm:w-[88%] w-[80%] rounded-4xl outline-none focus:ring-0 focus:outline-none"
         />
         <button
              onClick={() => {
     setCity(input);      // update the label "Weather in Paris"
     fetchWeather(input); // fetch new weather only on search
   }}
-          className="btn-bg text-white  sm:text-lg sm:px-7  sx:px[2] px-[9%]    text-md  py-1  lg:py-2 rounded-4xl"
+          className=" border  btn-bg text-white  sm:text-lg sm:px-7  sx:px[2] px-[9%]    text-md  py-1  lg:py-2 rounded-4xl"
         >
           Search
         </button>
@@ -175,19 +212,19 @@ export default function HomePage() {
       {weather && !message && (
         <>
     
-        <div className="flex flex-col sm:flex-row justify-between mt-15">
+        <div className="flex flex-col sm:flex-row justify-between mt-14">
           <div>
-       <WeatherData  weather={weather} city={selection} time = {weather.hourly.time[0]} />
+       <WeatherData  weather={weather} city={selection}  />
           </div>
           <div className="mr-4">
-            <div className="w-70 text-center mb-2 ">
+            <div className="w-60 text-center mb-2 ">
               <p className="sm:text-md text-sm ml-6 leading-none text-white font-md  pb-2">Get real-time weather updates with live temperature, wind, and sky conditions.</p>
             </div>
             <div className="flex flex-row sm:flex-col justify-between">
-   <div className="mb-6 ">
+   <div className="mb-3 ">
             <WindChart windspeed={weather.daily.windspeed_10m_max[0]} windspeedData={weather.hourly.windspeed_10m} />
           </div>
-          <div className="sm:my-6">
+          <div className="sm:mt-1">
             <SunArcCard
               sunrise={new Date(weather.daily.sunrise[0]).toLocaleTimeString([], {
                 hour: "2-digit",
@@ -205,9 +242,9 @@ export default function HomePage() {
    
        
 
-<div className="ml-11 mt-4  mb-2 text-xl font-semibold ">
-  <button className="mr-4 border rounded-3xl px-7 py-2" onClick={() => setDaily(true)}>Daily</button>
-  <button className=" border rounded-3xl px-7 py-2" onClick={() => setDaily(false)}>Hourly</button>
+<div className="ml-11   mb-1 text-xl font-semibold ">
+  <button className="mr-4 border rounded-3xl px-7  text-white py-2" onClick={() => setDaily(true)}>Daily</button>
+  <button className=" border rounded-3xl px-7  py-2 text-white" onClick={() => setDaily(false)}>Hourly</button>
 </div>
 
 
@@ -251,6 +288,8 @@ export default function HomePage() {
         </>
       )}
     </div>
+    </div>
   );
 }
+
 

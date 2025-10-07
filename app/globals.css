@@ -13,3 +13,7 @@
 background: #575353;
 background: linear-gradient(108deg, rgba(87, 83, 83, 1) 0%, rgba(38, 37, 37, 1) 89%);
 }
+
+.video {
+  background-color: black;
+}

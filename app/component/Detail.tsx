@@ -28,7 +28,7 @@ const Detail = ({ time, temperature_2m, weathercode, windspeed_10m, winddirectio
     .filter(({ t }) => new Date(t).toLocaleDateString() === today);
 
 return (
-<div className="border rounded-lg p-4 shadow-md bg-transparent border-white/22  mb-4">
+<div className="border rounded-lg p-4 shadow-md bg-transparent border-white/60  mb-4">
     <h3 className="font-bold mb-2 text-white">
         Today
     </h3>
