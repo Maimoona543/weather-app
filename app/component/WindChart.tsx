@@ -58,7 +58,7 @@ const options = {
 };
 
   return (
- <div className="lg:w-74 sm:w-65 w-39  h-38 lg:h-48 sm:h-45 p-3  backdrop-blur-md border rounded-2xl bg-transparent   border-white/23 shadow-lg flex flex-col justify-between">
+ <div className="lg:w-74 sm:w-65 xs:h-36  ml-3 sm:ml-0 xs:w-37 smx:w-39 smx:h-39  lg:h-48 sm:h-45 p-3  backdrop-blur-md border rounded-2xl bg-transparent   border-white/23 shadow-lg flex flex-col justify-between">
   {/* Top Section */}
   <div className="flex justify-between items-center text-white">
     <div className="flex items-center gap-1">
@@ -75,13 +75,13 @@ const options = {
   </div>
 
 {/* Bottom Bars */}
-<div className="flex items-end gap-2 h-24 overflow-x-auto">
+<div className="flex items-end gap-2 h-24   overflow-x-auto">
   {windspeedData.slice(0, 12).map((val, i) => {
     console.log("bar", i, val);
     return (
       <div
         key={i}
-        className="w-4 bg-white "
+        className="w-4  bg-white "
         style={{ height: `${val * 4}px` }}
       />
     );

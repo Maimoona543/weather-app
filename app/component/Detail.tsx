@@ -48,7 +48,7 @@ return (
               <span>{new Date(t).toLocaleTimeString([], { hour: "2-digit" })}</span>
               <span className="text-2xl">{getWeatherIcon(weathercode[i])}</span>
               <span>{Math.floor(temperature_2m[i])}°C</span>
-              <span>💨 {Math.floor(windspeed_10m[i])} m/s</span>
+              <span className="text-[10px]">💨 {Math.floor(windspeed_10m[i])} m/s</span>
               <span>🧭 {winddirection[i]}°</span>
 
             </div>

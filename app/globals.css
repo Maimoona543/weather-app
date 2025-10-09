@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+
+@theme {
+  /* ✅ Custom Breakpoints */
+  --breakpoint-xs: 300px;
+  --breakpoint-smx: 370px;
+}
+
 .shining-text {
   color: #fff; /* or any color */
   text-shadow: 
