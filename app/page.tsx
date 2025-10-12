@@ -110,7 +110,7 @@ export default function HomePage() {
 
 
 {/* Blurred background video */}
-<AnimatePresence mode="popLayout">
+<AnimatePresence mode="wait">
   {weather && (
     <motion.video
       key={bgCode}
@@ -118,11 +118,15 @@ export default function HomePage() {
       muted
       loop
       playsInline
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 1.5, ease: "easeInOut" }}
-      className="absolute inset-0 w-full h-full object-cover blur-md -z-10"
+      preload="auto"
+      initial={{ opacity: 0, filter: "blur(12px) brightness(70%)" }}
+      animate={{ opacity: 1, filter: "blur(8px) brightness(100%)" }}
+      exit={{ opacity: 0, filter: "blur(12px) brightness(60%)" }}
+      transition={{
+        duration: 2.8, // smoother & slower fade
+        ease: [0.45, 0, 0.55, 1], // natural ease curve
+      }}
+      className="absolute inset-0 w-full h-full object-cover sm:rounded-2xl -z-10 blur-md"
     >
       <source
         src={getWeatherVideo(weather?.daily.weathercode[0] ?? 0)}
@@ -132,36 +136,42 @@ export default function HomePage() {
   )}
 </AnimatePresence>
 
+
 {/* Main content card */}
 <div className="relative xs:w-full sm:w-[85%] sm:my-4 pt-2 h-full sm:rounded-2xl overflow-hidden ">
-  <AnimatePresence mode="popLayout">
-    {weather && (
-      <motion.video
-        key={bgCode}
-        autoPlay
-        muted
-        loop
-        playsInline
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 1.5, ease: "easeInOut" }}
-        className="absolute inset-0 w-full h-full object-cover sm:rounded-2xl -z-10"
-      >
-        <source
-          src={getWeatherVideo(weather?.daily.weathercode[0] ?? 0)}
-          type="video/mp4"
-        />
-      </motion.video>
-    )}
-  </AnimatePresence>
+  <AnimatePresence mode="wait">
+  {weather && (
+    <motion.video
+      key={bgCode} // triggers animation when bgCode changes
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="auto"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{
+        duration: 2.8, // longer fade for smoothness
+        ease: [0.45, 0, 0.55, 1], // smoother easing curve
+      }}
+      className="absolute inset-0 w-full h-full object-cover sm:rounded-2xl -z-10"
+    >
+      <source
+        src={getWeatherVideo(weather?.daily.weathercode[0] ?? 0)}
+        type="video/mp4"
+      />
+    </motion.video>
+  )}
+</AnimatePresence>
+
 
 
 
     <div className="flex flex-row smx:justify-between items-center">
      <div className="flex flex-row  items-center">
       <img className="sm:h-9 sm:w-9 xs:h-6  xs:w-6 h-7 w-7 object-cover pr-1" src="/weatherIcon.png" alt="" />
-        <p className="text-white smx:w-25 sm:w-30  sm:text-[13px] xs:mr-2 sm:text-md smx:text-[12px]">
+        <p className="text-white smx:w-25 sm:w-30  sm:text-[14px] xs:mr-2  xs:text-[10px] smx:text-[12px]">
           Weather Forecast
         </p>       
       </div>
@@ -211,6 +221,8 @@ export default function HomePage() {
 </div>
 
 
+
+
     </div>
 
     {/* Friendly Message */}
@@ -226,7 +238,7 @@ export default function HomePage() {
         </div>
         <div className="mr-4">
           <div className="w-60 text-center mb-2 hidden sm:block">
-            <p className="sm:text-md text-sm ml-6 leading-none text-white font-semibold pb-2">Get real-time weather updates with live temperature, wind, and sky conditions.</p>
+            <p className="sm:text-md text-sm ml-6 leading-none text-color font-semibold pb-2">Get real-time weather updates with live temperature, wind, and sky conditions.</p>
           </div>
           <div className="flex flex-row  sm:flex-col gap-2 sm:gap-0 justify-center sm:justify-between">
  <div className="mb-3 ">

@@ -42,7 +42,7 @@ return (
         return (
 <div
   key={i}
-  className={`flex flex-col items-center p-2 border rounded-lg min-w-[55px] lg:min-w-[60px] 
+  className={`flex flex-col items-center p-2 border rounded-lg sm:min-w-[55px] min-w-[49px] lg:min-w-[60px] 
     ${current ? "bg-blue-200/40 border-blue-400 backdrop-blur-md" : "bg-white/40 backdrop-blur-md"}`}
 >
               <span>{new Date(t).toLocaleTimeString([], { hour: "2-digit" })}</span>

@@ -15,6 +15,14 @@
     0 0 20px #fff;
 }
 
+.text-color {
+  background: linear-gradient(175deg, #dedede 31%, #7A7A7A 99%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
 
 .btn-bg{
 background: #575353;

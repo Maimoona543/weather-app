@@ -136,7 +136,7 @@ const WeatherChart = ({ weather, city }: Props) => {
 
             <div className="flex flex-row items-center mt-2 ">
               <div>
-              <h3 className="sm:pl-3 pb-2 pt-[7%] sm:text-6xl text-xl font-bold text-white">
+              <h3 className="sm:pl-3 pb-2 pt-[7%] sm:text-6xl text-xl font-bold text-color">
                 {temp !== null ? (
                   <div className="flex items-center">
                     {/* Sign */}
@@ -145,7 +145,7 @@ const WeatherChart = ({ weather, city }: Props) => {
                     </div>
 
                     {/* Temperature */}
-                    <div className="sm:text-9xl  text-8xl font-bold ">
+                    <div className="sm:text-9xl text-color  text-8xl text-color font-bold ">
                       {Math.floor(temp)}
                       <span className="font-extralight">°</span>
                     </div>
