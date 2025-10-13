@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { TrophySpin } from 'react-loading-indicators'
 
 const LoadingSpinner = () => {

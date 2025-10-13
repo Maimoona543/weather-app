@@ -58,7 +58,8 @@ const options = {
 };
 
   return (
- <div className="lg:w-74 sm:w-65 xs:h-36  ml-3 sm:ml-0 xs:w-37 smx:w-39 smx:h-39  lg:h-48 sm:h-45 p-3  backdrop-blur-md border rounded-2xl bg-transparent   border-white/23 shadow-lg flex flex-col justify-between">
+ <div className="lg:w-74 sm:w-65 xs:h-36  ml-3 sm:ml-0 xs:w-37 smx:w-39 smx:h-39  lg:h-48 sm:h-45  p-3 backdrop-blur-lg bg-white/10 border-white/20 shadow-xl rounded-2xl flex flex-col justify-between">
+
   {/* Top Section */}
   <div className="flex justify-between items-center text-white">
     <div className="flex items-center gap-1">

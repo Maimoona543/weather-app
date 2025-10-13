@@ -139,11 +139,6 @@ const WeatherChart = ({ weather, city }: Props) => {
               <h3 className="sm:pl-3 pb-2 pt-[7%] sm:text-6xl text-xl font-bold text-color">
                 {temp !== null ? (
                   <div className="flex items-center">
-                    {/* Sign */}
-                    <div className="text-2xl  font-extralight mr-1">
-                      {temp > 0 ? "+" : "-"}
-                    </div>
-
                     {/* Temperature */}
                     <div className="sm:text-9xl text-color  text-8xl text-color font-bold ">
                       {Math.floor(temp)}
@@ -164,8 +159,6 @@ const WeatherChart = ({ weather, city }: Props) => {
                 <h2 className="flex justify-center flex-row">
                   <p className="pr-3">H</p>
                   <div className="flex items-center">
-                    {/* Sign */}
-                    <div className="text-sm">{highTemp > 0 ? "+" : "-"}</div>
 
                     {/* Temperature */}
                     <div className=" ">
@@ -179,10 +172,8 @@ const WeatherChart = ({ weather, city }: Props) => {
                 {/* low tmep */}
                 <div className="border  rounded-xl  border-white  mt-2 pl-3 pr-3 sm:px-6 py-1">
                 <h3 className="flex flex-row">
-                  <p className="pr-3">H</p>
+                  <p className="pr-3">L</p>
                   <div className="flex items-center">
-                    {/* Sign */}
-                    <div className="">{lowTemp > 0 ? "+" : "-"}</div>
 
                     {/* Temperature */}
                     <div className=" ">
@@ -210,3 +201,4 @@ const WeatherChart = ({ weather, city }: Props) => {
 };
 
 export default WeatherChart;
+

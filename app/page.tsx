@@ -82,18 +82,32 @@ export default function HomePage() {
 
   }, []);
 
-
-  function getWeatherVideo(code: number) {
-  if (code <= 1) return "/clear-sky.mp4";
-  if (code === 2) return "/partly-cloudy.mp4";
-  if (code === 3) return "/cloudy.mp4";
+function getWeatherVideo(code: number): string {
+  if (code <= 1) return code === 0 ? "/clear-sky.mp4" : "/sunny.mp4";
+  
+  if (code === 2) return "/cloudy.mp4"; 
+    
+  if (code === 3) return "cloudy.mp4"; 
+  
   if (code >= 45 && code <= 48) return "/foggy.mp4";
-  if (code >= 51 && code <= 67) return "/heavy-drizzle.mp4";
-  if (code >= 71 && code <= 77) return "/heavy-snow.mp4";
-  if (code >= 95) return "/81.mp4";
+  
+  if (code === 51 || code === 53 || code === 56 || code === 57) return "/light-drizzle.mp4";
+  
+  if (
+    code === 61 || code === 80 || (code >= 63 && code <= 67) || code === 81 || 
+    code === 82 
+  ) {
+    return "/light-rain.mp4";
+  }
+    
+  if (code === 71 || code === 77) return "/light-snow.mp4";
+  
+  if ((code >= 73 && code <= 75) || (code >= 85 && code <= 86)) return "/heavy-snowy.mp4";
+  
+  if (code >= 95) return "/thunder.mp4"; 
+  
   return "/clear-sky.mp4";
 }
-
   const selection = city
   return (
 <>
@@ -109,7 +123,7 @@ export default function HomePage() {
   <div className="relative w-full min-h-screen flex justify-center items-center overflow-hidden">
 
 
-{/* Blurred background video */}
+{/* Blurred background video - UPDATED */}
 <AnimatePresence mode="wait">
   {weather && (
     <motion.video
@@ -120,13 +134,14 @@ export default function HomePage() {
       playsInline
       preload="auto"
       initial={{ opacity: 0, filter: "blur(12px) brightness(70%)" }}
-      animate={{ opacity: 1, filter: "blur(8px) brightness(100%)" }}
-      exit={{ opacity: 0, filter: "blur(12px) brightness(60%)" }}
+      animate={{ opacity: 1, filter: "blur(8px) brightness(90%)" }} // Reduced max brightness
+      exit={{ opacity: 0, filter: "blur(12px) brightness(40%)" }} // Darker exit to hide swap
       transition={{
-        duration: 2.8, // smoother & slower fade
-        ease: [0.45, 0, 0.55, 1], // natural ease curve
+        duration: 1, // Smoother, slightly faster transition
+        ease: [0.45, 0, 0.55, 1],
       }}
-      className="absolute inset-0 w-full h-full object-cover sm:rounded-2xl -z-10 blur-md"
+      // Added scale-[1.05] to hide corner artifacts
+      className="absolute inset-0 w-full h-full object-cover sm:rounded-2xl -z-10 scale-[1.05]" 
     >
       <source
         src={getWeatherVideo(weather?.daily.weathercode[0] ?? 0)}
@@ -138,11 +153,12 @@ export default function HomePage() {
 
 
 {/* Main content card */}
-<div className="relative xs:w-full sm:w-[85%] sm:my-4 pt-2 h-full sm:rounded-2xl overflow-hidden ">
+<div className="relative w-full sm:w-[85%] sm:my-4 pt-2 sm:h-full min-h-screen sm:rounded-2xl overflow-hidden backdrop-blur-3xl bg-black/30">
+  {/* Main video - transition duration adjusted for consistency */}
   <AnimatePresence mode="wait">
   {weather && (
     <motion.video
-      key={bgCode} // triggers animation when bgCode changes
+      key={bgCode} 
       autoPlay
       muted
       loop
@@ -152,8 +168,8 @@ export default function HomePage() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{
-        duration: 2.8, // longer fade for smoothness
-        ease: [0.45, 0, 0.55, 1], // smoother easing curve
+        duration: 1, // Consistent with the blurred background
+        ease: [0.45, 0, 0.55, 1],
       }}
       className="absolute inset-0 w-full h-full object-cover sm:rounded-2xl -z-10"
     >
@@ -170,8 +186,8 @@ export default function HomePage() {
 
     <div className="flex flex-row smx:justify-between items-center">
      <div className="flex flex-row  items-center">
-      <img className="sm:h-9 sm:w-9 xs:h-6  xs:w-6 h-7 w-7 object-cover pr-1" src="/weatherIcon.png" alt="" />
-        <p className="text-white smx:w-25 sm:w-30  sm:text-[14px] xs:mr-2  xs:text-[10px] smx:text-[12px]">
+      <img className="sm:h-9 sm:w-9 xs:h-4 smx:h-7 smx:w-7  xs:w-4 h-7 w-7 object-cover pr-1" src="/weatherIcon.png" alt="" />
+        <p className="text-white smx:w-25 sm:w-30  sm:text-[14px] xs:mr-2  xs:text-[9px] smx:text-[12px]">
           Weather Forecast
         </p>       
       </div>
