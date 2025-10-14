@@ -9,7 +9,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import LoadingSpinner from "./component/LoadingSpinner";
 
 
-// fetching data for charts... 
 interface WeatherData {
   daily: {
     time: string[];
@@ -332,4 +331,3 @@ function getWeatherVideo(code: number): string {
 
   );
 }
-
