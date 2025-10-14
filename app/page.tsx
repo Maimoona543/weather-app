@@ -39,7 +39,7 @@ export default function HomePage() {
   const [message, setMessage] = useState<string>("");
   const [daily,setDaily] = useState(true)
   const [bgCode, setBgCode] = useState<number>(0);
-
+  
 
   async function fetchWeather(cityName: string) {
     setMessage(""); // reset previous message
@@ -152,7 +152,7 @@ function getWeatherVideo(code: number): string {
 
 
 {/* Main content card */}
-<div className="relative w-full sm:w-[85%] sm:my-4 pt-2 sm:h-full min-h-screen sm:rounded-2xl overflow-hidden backdrop-blur-3xl bg-black/30">
+<div className="relative w-full lg:w-[85%] sm:my-4 pt-2 lg:h-full min-h-screen lg:rounded-2xl overflow-hidden backdrop-blur-3xl bg-black/30">
   {/* Main video - transition duration adjusted for consistency */}
   <AnimatePresence mode="wait">
   {weather && (
@@ -170,7 +170,7 @@ function getWeatherVideo(code: number): string {
         duration: 1, // Consistent with the blurred background
         ease: [0.45, 0, 0.55, 1],
       }}
-      className="absolute inset-0 w-full h-full object-cover sm:rounded-2xl -z-10"
+      className="absolute inset-0  w-full lg:h-full object-cover lg:rounded-2xl -z-10"
     >
       <source
         src={getWeatherVideo(weather?.daily.weathercode[0] ?? 0)}
@@ -183,7 +183,7 @@ function getWeatherVideo(code: number): string {
 
 
 
-    <div className="flex flex-row smx:justify-between items-center">
+    <div className="flex flex-row justify-between items-center">
      <div className="flex flex-row  items-center">
       <img className="sm:h-9 sm:w-9 xs:h-4 smx:h-7 smx:w-7  xs:w-4 h-7 w-7 object-cover pr-1" src="/weatherIcon.png" alt="" />
         <p className="text-white smx:w-25 sm:w-30  sm:text-[14px] xs:mr-2  xs:text-[9px] smx:text-[12px]">
@@ -192,22 +192,22 @@ function getWeatherVideo(code: number): string {
       </div>
 
     {/* Search Bar */}
-    <div className=" flex gap-2  items-center border border-white rounded-3xl  p-1 lg:h-13 xs:h-10  h-11 w-[50%] xs:w-[39%] sm:w-[59%] lg:w-[65%] xl:w-[73%]" >
-      <img className="sm:w-5 ml-1 sm:h-5 w-4 h-4 object-cover" src="magnifying-glass.png" alt="" />
+    <div className=" flex gap-2  items-center border border-white rounded-3xl sm:h-11  p-1 lg:h-13 xs:h-9  w-[50%] xs:w-[39%] sm:w-[59%] lg:w-[65%] xl:w-[73%]" >
+      <img className="sm:w-5 ml-1 xs:h-3 xs:w-3 sm:h-5 w-4 h-4 object-cover" src="magnifying-glass.png" alt="" />
       <input
       
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder="Enter city name"
-        className="border-none p-1 text-white sm:w-[88%] w-[80%] rounded-4xl outline-none focus:ring-0 focus:outline-none"
+        className="border-none sm:p-1 text-white sm:w-[88%] w-[80%] xs:text-[13px] sm:text-lg rounded-4xl outline-none focus:ring-0 focus:outline-none"
       />
       <button
            onClick={() => {
   setCity(input);      // update the label "Weather in Paris"
   fetchWeather(input); // fetch new weather only on search
 }}
-        className=" border  btn-bg text-white  sm:text-lg sm:px-7  sx:px[2] px-[9%]    text-md  py-1  lg:py-2 rounded-4xl"
+        className=" border  btn-bg text-white  sm:text-lg sm:px-7  sx:px[2] px-[9%] xs:text-[13px]   text-md  py-1  lg:py-2 rounded-4xl"
       >
         Search
       </button>
@@ -215,13 +215,13 @@ function getWeatherVideo(code: number): string {
 
     {/* day/date */}
  
-<div className="p-2">
+<div className="sm:p-2">
 {!weather || message ? (
   <div>
     <p className='text-white'>Loading...</p>
   </div>
 ) : (
-  <div className="text-white sm:text-sm text-[12px]">
+  <div className="text-white sm:text-sm  text-[12px]">
     <p>
       {weather.daily.time.length
         ? new Date(weather.daily.time[0]).toLocaleDateString("en-US", {
@@ -331,4 +331,6 @@ function getWeatherVideo(code: number): string {
 
   );
 }
+
+
 
