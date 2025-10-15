@@ -82,7 +82,7 @@ export default function HomePage() {
   }, [city]);
 
 function getWeatherVideo(code: number): string {
-  if (code <= 1)  "/clear-sky.mp4";
+  if (code <= 1) return  "/clear-sky.mp4";
   
   if (code === 2) return "/cloudy.mp4"; 
     

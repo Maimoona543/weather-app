@@ -78,7 +78,6 @@ const options = {
 {/* Bottom Bars */}
 <div className="flex items-end gap-2 h-24   overflow-x-auto">
   {windspeedData.slice(0, 12).map((val, i) => {
-    console.log("bar", i, val);
     return (
       <div
         key={i}
