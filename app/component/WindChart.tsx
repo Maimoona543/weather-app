@@ -97,4 +97,3 @@ const options = {
 };
 
 export default WindChart;
-

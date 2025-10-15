@@ -152,7 +152,7 @@ function getWeatherVideo(code: number): string {
 
 
 {/* Main content card */}
-<div className="relative w-full lg:w-[85%] sm:my-4 pt-2 lg:h-full min-h-screen lg:rounded-2xl overflow-hidden backdrop-blur-3xl bg-black/30">
+<div className="relative w-full lg:w-[85%] sm:my-4 pt-2 h-full min-h-screen lg:rounded-2xl overflow-hidden backdrop-blur-3xl bg-black/30">
   {/* Main video - transition duration adjusted for consistency */}
   <AnimatePresence mode="wait">
   {weather && (
@@ -170,7 +170,7 @@ function getWeatherVideo(code: number): string {
         duration: 1, // Consistent with the blurred background
         ease: [0.45, 0, 0.55, 1],
       }}
-      className="absolute inset-0  w-full lg:h-full object-cover lg:rounded-2xl -z-10"
+      className="absolute inset-0  w-full h-full object-cover lg:rounded-2xl -z-10"
     >
       <source
         src={getWeatherVideo(weather?.daily.weathercode[0] ?? 0)}
@@ -331,6 +331,4 @@ function getWeatherVideo(code: number): string {
 
   );
 }
-
-
 
