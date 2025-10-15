@@ -1,7 +1,7 @@
 "use client";
 
 import { Sunrise, Sunset } from "lucide-react";
-
+import Image from "next/image";
 const SunArcCard = ({ sunrise, sunset }: { sunrise: string; sunset: string }) => {
   return (
  <div className="lg:w-74 xs:w-37  xs:h-36 sm:w-65 smx:w-39 smx:h-39  lg:h-48 sm:h-45  p-3 backdrop-blur-lg bg-white/10 border-white/20 shadow-xl rounded-2xl flex flex-col justify-between">
@@ -43,9 +43,11 @@ const SunArcCard = ({ sunrise, sunset }: { sunrise: string; sunset: string }) =>
 
     {/* Sun Icon */}
     <div className="absolute bottom-0">
-      <img
+      <Image
         className="sm:w-25 sm:h-25 w-12 h-12 object-cover"
-        src="sunrise.png"
+        src="/sunrise.png"
+        width={48}
+        height={48}
         alt="sun"
       />
     </div>

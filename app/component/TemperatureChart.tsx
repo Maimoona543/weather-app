@@ -43,11 +43,10 @@ function createEmojiIcon(emoji: string) {
 interface Props {
   dates: string[];
   tempMax: number[];
-  tempMin: number[];
   weatherCode: number[];
 }
 
-const TemperatureChart = ({ dates, tempMax, tempMin, weatherCode }: Props) => {
+const TemperatureChart = ({ dates, tempMax, weatherCode }: Props) => {
   // Point style: circle for today, icons for others
 const pointStyles = weatherCode.map((code, i) => (i === 0 ? "circle" : createEmojiIcon(getWeatherIcon(code))));
 const pointRadii = weatherCode.map((_, i) => (i === 0 ? 8 : 18));

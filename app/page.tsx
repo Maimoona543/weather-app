@@ -79,7 +79,7 @@ export default function HomePage() {
   useEffect(() => {
     fetchWeather(city);
 
-  }, []);
+  }, [city]);
 
 function getWeatherVideo(code: number): string {
   if (code <= 1)  "/clear-sky.mp4";
@@ -295,7 +295,6 @@ function getWeatherVideo(code: number): string {
     <TemperatureChart
       dates={weather.daily.time}
       tempMax={weather.daily.temperature_2m_max}
-      tempMin={weather.daily.temperature_2m_min}
       weatherCode={weather.daily.weathercode}
     />
   </motion.div>
