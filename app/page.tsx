@@ -5,8 +5,8 @@ import WindChart from "./component/WindChart";
 import SunArcCard from "./component/Sun";
 import TemperatureChart from "./component/TemperatureChart";
 import Detail from "./component/Detail";
-import { motion, AnimatePresence } from "framer-motion";
 import LoadingSpinner from "./component/LoadingSpinner";
+import { motion, AnimatePresence } from "framer-motion";
 
 
 interface WeatherData {
@@ -330,4 +330,6 @@ function getWeatherVideo(code: number): string {
 
   );
 }
+
+
 
