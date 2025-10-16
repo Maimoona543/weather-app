@@ -113,7 +113,7 @@ plugins: {
   anchor: "end",
   labels: {
     day: {
-      formatter: (_: any, ctx: any) => {
+      formatter: (_: string, ctx: { dataIndex: number } ) => {
         const day = new Date(dates[ctx.dataIndex]).toLocaleDateString("en-US", {
           weekday: "short",
         });

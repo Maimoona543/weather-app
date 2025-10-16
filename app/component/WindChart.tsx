@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -64,8 +64,13 @@ const options = {
   <div className="flex justify-between items-center text-white">
     <div className="flex items-center gap-1">
       <Wind className="sm:w-5 sm:h-5 w-3 h-3" />
-      <img className="sm:w-8 sm:h-4 w-4 h-2 ml-[-1.6rem] object-cover" src="wind.png" alt="" />
-      <span className="sm:text-sm smx:text-[10px] xs:text-[8px] font-semibold text-white">Wind status</span>
+<Image
+  className="sm:w-8 sm:h-4 w-4 h-2 ml-[-1.6rem] object-cover"
+  src="/wind.png"
+  alt="Wind icon"
+  width={32}
+  height={16}
+/>      <span className="sm:text-sm smx:text-[10px] xs:text-[8px] font-semibold text-white">Wind status</span>
     </div>
     <span className="sm:text-lg text-[10px] text-white">{windspeed.toFixed(2)} km/h</span>
   </div>
