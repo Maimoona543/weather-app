@@ -5,7 +5,7 @@ import WindChart from "./component/WindChart";
 import SunArcCard from "./component/Sun";
 import TemperatureChart from "./component/TemperatureChart";
 import Detail from "./component/Detail";
-import LoadingSpinner from "./component/LoadingSpinner";
+import LoadingSpinner from "./component/loadingSpinner";
 import { motion, AnimatePresence } from "framer-motion";
 
 
@@ -330,6 +330,7 @@ function getWeatherVideo(code: number): string {
 
   );
 }
+
 
 
 
