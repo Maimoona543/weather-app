@@ -57,7 +57,7 @@ const pointRadii = weatherCode.map((_, i) => (i === 0 ? 8 : 18));
   const pointBorderColors = weatherCode.map((_, i) => (i === 0 ? "#FFFFFF " : "transparent"));
 
   const chartData = {
-    labels: dates.map((date: any) =>
+    labels: dates.map((date: string) =>
       new Date(date).toLocaleDateString("en-US", { weekday: "short", day: "numeric" })
     ),
 datasets: [

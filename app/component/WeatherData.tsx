@@ -1,10 +1,34 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
+
+
+
+interface WeatherData {
+  daily: {
+    time: string[];
+    temperature_2m_max: number[];
+    temperature_2m_min: number[];
+    weathercode: number[];
+    windspeed_10m_max: number[];
+    winddirection_10m_dominant: number[];
+    sunrise: string[];
+    sunset: string[];
+  };
+  hourly: {
+    time: string[];
+    temperature_2m: number[];
+    weathercode: number[];
+    windspeed_10m: number[];
+    winddirection: number[];
+  };
+}
 
 interface Props {
-  weather: any;
+  weather:WeatherData;
   city: string;
 }
+
 
 function getWeatherDescription(code: number) {
   const map: { [key: number]: { title: string; sub: string; } } = {
@@ -186,8 +210,10 @@ const WeatherChart = ({ weather, city }: Props) => {
               </div>
             </div>
             <div className="flex mb-3 sm:mb-0mb-3 sm:mb-0 flex-row  items-center">
-              <img
-                className="w-3 h-4 object-cover sm:ml-4 mr-1 "
+              <Image
+                className="object-cover sm:ml-4 mr-1 "
+                width = {3}
+                height = {4}
                 src="pin.png"
                 alt=""
               />
