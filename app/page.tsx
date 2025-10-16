@@ -5,7 +5,7 @@ import WindChart from "./component/WindChart";
 import SunArcCard from "./component/Sun";
 import TemperatureChart from "./component/TemperatureChart";
 import Detail from "./component/Detail";
-import { TrophySpin } from 'react-loading-indicators'
+import { TrophySpin } from "react-loading-indicators";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
@@ -107,15 +107,26 @@ export default function HomePage() {
     return "/clear-sky.mp4";
   }
   const selection = city;
+
+  function handleSearch() {
+    if (!input.trim()) return;
+    setCity(input);
+    fetchWeather(input);
+  }
+
   return (
     <>
       {!weather ? (
         <div className="h-min-screen ">
-            <div className="bg-black w-full h-screen  flex justify-center items-center">
-          <TrophySpin color="#cdcdcd" size="medium" text="Loading" textColor="" /> 
-    </div>
-
-         </div>
+          <div className="bg-black w-full h-screen  flex justify-center items-center">
+            <TrophySpin
+              color="#cdcdcd"
+              size="medium"
+              text="Loading"
+              textColor=""
+            />
+          </div>
+        </div>
       ) : (
         <div className="relative w-full min-h-screen flex justify-center items-center overflow-hidden">
           {/* Blurred background video - UPDATED */}
@@ -175,7 +186,7 @@ export default function HomePage() {
               )}
             </AnimatePresence>
 
-            <div className="flex flex-row justify-between items-center">
+            <div className="flex flex-row justify-between  items-center">
               <div className="flex flex-row  items-center">
                 <Image
                   className="sm:h-9 sm:w-9 xs:h-4 smx:h-7 smx:w-7 xs:w-4 h-7 w-7 object-cover pr-1"
@@ -190,7 +201,13 @@ export default function HomePage() {
               </div>
 
               {/* Search Bar */}
-              <div className=" flex gap-2  items-center border border-white rounded-3xl sm:h-11  p-1 lg:h-13 xs:h-9  w-[50%] xs:w-[39%] sm:w-[59%] lg:w-[65%] xl:w-[73%]">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault(); // prevents reload
+                  handleSearch();
+                }}
+                className="flex gap-2 items-center border border-white rounded-3xl sm:h-11 p-1 lg:h-13 xs:h-9 w-[50%] xs:w-[39%] sm:w-[59%] lg:w-[65%] xl:w-[73%]"
+              >
                 <Image
                   className="sm:w-5 ml-1 xs:h-3 xs:w-3 sm:h-5 w-4 h-4 object-cover"
                   src="/magnifying-glass.png"
@@ -198,6 +215,7 @@ export default function HomePage() {
                   width={20}
                   height={20}
                 />
+
                 <input
                   type="text"
                   value={input}
@@ -205,16 +223,14 @@ export default function HomePage() {
                   placeholder="Enter city name"
                   className="border-none sm:p-1 text-white sm:w-[88%] w-[80%] xs:text-[13px] sm:text-lg rounded-4xl outline-none focus:ring-0 focus:outline-none"
                 />
+
                 <button
-                  onClick={() => {
-                    setCity(input); // update the label "Weather in Paris"
-                    fetchWeather(input); // fetch new weather only on search
-                  }}
-                  className=" border  btn-bg text-white  sm:text-lg sm:px-7  sx:px[2] px-[9%] xs:text-[13px]   text-md  py-1  lg:py-2 rounded-4xl"
+                  type="submit" // important!
+                  className="border btn-bg text-white sm:text-lg sm:px-7 px-[9%] xs:text-[13px] text-md py-1 lg:py-2 rounded-4xl"
                 >
                   Search
                 </button>
-              </div>
+              </form>
 
               {/* day/date */}
 
@@ -344,4 +360,5 @@ export default function HomePage() {
     </>
   );
 }
+
 
