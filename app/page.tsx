@@ -5,9 +5,9 @@ import WindChart from "./component/WindChart";
 import SunArcCard from "./component/Sun";
 import TemperatureChart from "./component/TemperatureChart";
 import Detail from "./component/Detail";
+import { TrophySpin } from 'react-loading-indicators'
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import  LoadingSpinner  from "./component/LoadingSpinner";
 
 interface WeatherData {
   daily: {
@@ -38,8 +38,7 @@ export default function HomePage() {
   const [bgCode, setBgCode] = useState<number>(0);
 
   async function fetchWeather(cityName: string) {
-    setMessage(""); // reset previous message
-    // setWeather(null);
+    setMessage("");
 
     try {
       const geoRes = await fetch(
@@ -112,8 +111,11 @@ export default function HomePage() {
     <>
       {!weather ? (
         <div className="h-min-screen ">
-          <LoadingSpinner />
-        </div>
+            <div className="bg-black w-full h-screen  flex justify-center items-center">
+          <TrophySpin color="#cdcdcd" size="medium" text="Loading" textColor="" /> 
+    </div>
+
+         </div>
       ) : (
         <div className="relative w-full min-h-screen flex justify-center items-center overflow-hidden">
           {/* Blurred background video - UPDATED */}

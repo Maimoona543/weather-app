@@ -209,12 +209,12 @@ const WeatherChart = ({ weather, city }: Props) => {
                 </div>
               </div>
             </div>
-            <div className="flex mb-3 sm:mb-0mb-3 sm:mb-0 flex-row  items-center">
+            <div className="flex mb-3  sm:mb-0 flex-row  items-center">
               <Image
                 className="object-cover sm:ml-4 mr-1 "
                 width = {3}
                 height = {4}
-                src="pin.png"
+                src="/pin.png"
                 alt=""
               />
               <h3 className="text-xl  font-normal">{city}</h3>
