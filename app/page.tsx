@@ -7,7 +7,7 @@ import TemperatureChart from "./component/TemperatureChart";
 import Detail from "./component/Detail";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { LoadingSpinner } from "./component/LoadingSpinner";
+import  LoadingSpinner  from "./component/LoadingSpinner";
 
 interface WeatherData {
   daily: {
