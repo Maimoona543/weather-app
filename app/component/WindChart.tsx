@@ -12,15 +12,20 @@ import {
 import { Line } from "react-chartjs-2";
 import { Wind } from "lucide-react";
 
-
-interface Props{
-  windspeed:number;
-  windspeedData:number[];
+interface Props {
+  windspeed: number;
+  windspeedData: number[];
 }
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend
+);
 
-const WindChart = ({ windspeed , windspeedData} : Props) => {
-
+const WindChart = ({ windspeed, windspeedData }: Props) => {
   const chartData = {
     labels: Array(12).fill(""),
     datasets: [
@@ -35,70 +40,69 @@ const WindChart = ({ windspeed , windspeedData} : Props) => {
     ],
   };
 
-const options = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: { 
-  legend: { display: false },
-  tooltip: { enabled: false },
-  datalabels: { display: false } 
-},
-  scales: {
-    x: { 
-      display: false, 
-      grid: { display: false }, 
-      ticks: { display: false },
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false },
+      datalabels: { display: false },
     },
-    y: { 
-      display: false, 
-      grid: { display: false }, 
-      ticks: { display: false },  
+    scales: {
+      x: {
+        display: false,
+        grid: { display: false },
+        ticks: { display: false },
+      },
+      y: {
+        display: false,
+        grid: { display: false },
+        ticks: { display: false },
+      },
     },
-  },
-};
+  };
 
   return (
- <div className="lg:w-74 sm:w-65 xs:h-36  ml-3 sm:ml-0 xs:w-37 smx:w-39 smx:h-39  lg:h-48 sm:h-45  p-3 backdrop-blur-lg bg-white/10 border-white/20 shadow-xl rounded-2xl flex flex-col justify-between">
+    <div className="lg:w-74 sm:w-65 xs:h-36  ml-3 sm:ml-0 xs:w-37 smx:w-39 smx:h-39  lg:h-48 sm:h-45  p-3 backdrop-blur-lg bg-white/10 border-white/20 shadow-xl rounded-2xl flex flex-col justify-between">
+      {/* Top Section */}
+      <div className="flex justify-between items-center text-white">
+        <div className="flex items-center gap-1">
+          <Wind className="sm:w-5 sm:h-5 w-3 h-3" />
+          <Image
+            className="sm:w-8 sm:h-4 w-4 h-2 ml-[-1.6rem] object-cover"
+            src="/wind.png"
+            alt="Wind icon"
+            width={32}
+            height={16}
+          />{" "}
+          <span className="sm:text-sm smx:text-[10px] xs:text-[8px] font-semibold text-white">
+            Wind status
+          </span>
+        </div>
+        <span className="sm:text-lg text-[10px] text-white">
+          {windspeed.toFixed(2)} km/h
+        </span>
+      </div>
 
-  {/* Top Section */}
-  <div className="flex justify-between items-center text-white">
-    <div className="flex items-center gap-1">
-      <Wind className="sm:w-5 sm:h-5 w-3 h-3" />
-<Image
-  className="sm:w-8 sm:h-4 w-4 h-2 ml-[-1.6rem] object-cover"
-  src="/wind.png"
-  alt="Wind icon"
-  width={32}
-  height={16}
-/>      <span className="sm:text-sm smx:text-[10px] xs:text-[8px] font-semibold text-white">Wind status</span>
+      {/* Line Chart */}
+      <div className="flex-1 mt-2 relative w-full h-24">
+        <Line data={chartData} options={options} />
+      </div>
+
+      {/* Bottom Bars */}
+      <div className="flex items-end gap-2 h-24   overflow-x-auto">
+        {windspeedData.slice(0, 12).map((val, i) => {
+          return (
+            <div
+              key={i}
+              className="w-4  bg-white "
+              style={{ height: `${val * 4}px` }}
+            />
+          );
+        })}
+      </div>
     </div>
-    <span className="sm:text-lg text-[10px] text-white">{windspeed.toFixed(2)} km/h</span>
-  </div>
-
-  {/* Line Chart */}
-  <div className="flex-1 mt-2 relative w-full h-24">
-    <Line data={chartData} options={options} />
-  </div>
-
-{/* Bottom Bars */}
-<div className="flex items-end gap-2 h-24   overflow-x-auto">
-  {windspeedData.slice(0, 12).map((val, i) => {
-    return (
-      <div
-        key={i}
-        className="w-4  bg-white "
-        style={{ height: `${val * 4}px` }}
-      />
-    );
-  })}
-</div>
-
-
-
-</div>
-
   );
 };
 
 export default WindChart;
-

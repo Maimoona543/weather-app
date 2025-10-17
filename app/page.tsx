@@ -6,6 +6,7 @@ import SunArcCard from "./component/Sun";
 import TemperatureChart from "./component/TemperatureChart";
 import Detail from "./component/Detail";
 import { TrophySpin } from "react-loading-indicators";
+import { getWeatherDescription } from "./Utils/WeatherUtils";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
@@ -75,37 +76,23 @@ export default function HomePage() {
     fetchWeather(city);
   }, [city]);
 
-  function getWeatherVideo(code: number): string {
-    if (code <= 1) return "/clear-sky.mp4";
+function getWeatherVideoByTitle(title: string): string {
+  const lowerTitle = title.toLowerCase();
 
-    if (code === 2) return "/cloudy.mp4";
+  if (lowerTitle.includes("clear")) return "/clear-sky.mp4";
+  if (lowerTitle.includes("cloudy") || lowerTitle.includes("overcast"))
+    return "/cloudy.mp4";
+  if (lowerTitle.includes("fog")) return "/foggy.mp4";
+  if (lowerTitle.includes("drizzle")) return "/light-drizzle.mp4";
+  if (/\brain\b/.test(lowerTitle) || lowerTitle.includes("showers"))
+    return "/light-rain.mp4";
+  if (lowerTitle.includes("snow")) return "/heavy-snowy.mp4";
+  if (lowerTitle.includes("thunder")) return "/thunder.mp4";
 
-    if (code === 3) return "cloudy.mp4";
+  return "/clear-sky.mp4";
+}
 
-    if (code >= 45 && code <= 48) return "/foggy.mp4";
 
-    if (code === 51 || code === 53 || code === 56 || code === 57)
-      return "/light-drizzle.mp4";
-
-    if (
-      code === 61 ||
-      code === 80 ||
-      (code >= 63 && code <= 67) ||
-      code === 81 ||
-      code === 82
-    ) {
-      return "/light-rain.mp4";
-    }
-
-    if (code === 71 || code === 77) return "/light-snow.mp4";
-
-    if ((code >= 73 && code <= 75) || (code >= 85 && code <= 86))
-      return "/heavy-snowy.mp4";
-
-    if (code >= 95) return "/thunder.mp4";
-
-    return "/clear-sky.mp4";
-  }
   const selection = city;
 
   function handleSearch() {
@@ -113,9 +100,13 @@ export default function HomePage() {
     setCity(input);
     fetchWeather(input);
   }
+  const weatherInfo = weather
+    ? getWeatherDescription(weather.daily.weathercode[0])
+    : null;
 
   return (
-    <>
+    <div className="min-h-screen w-full ">
+    
       {!weather ? (
         <div className="h-min-screen ">
           <div className="bg-black w-full h-screen  flex justify-center items-center">
@@ -147,10 +138,13 @@ export default function HomePage() {
                   ease: [0.45, 0, 0.55, 1],
                 }}
                 // Added scale-[1.05] to hide corner artifacts
-                className="absolute inset-0 w-full h-full object-cover sm:rounded-2xl -z-10 scale-[1.05]"
+                className="absolute inset-0 w-full h-full object-cover sm:rounded-2xl -z-10 scale-[1.08]"
               >
                 <source
-                  src={getWeatherVideo(weather?.daily.weathercode[0] ?? 0)}
+                  src={getWeatherVideoByTitle(
+                    weatherInfo?.title ?? "",
+                  
+                  )}
                   type="video/mp4"
                 />
               </motion.video>
@@ -179,7 +173,8 @@ export default function HomePage() {
                   className="absolute inset-0   w-full h-full object-cover lg:rounded-2xl -z-10"
                 >
                   <source
-                    src={getWeatherVideo(weather?.daily.weathercode[0] ?? 0)}
+                    src={getWeatherVideoByTitle(
+                      weatherInfo?.title ?? "")}
                     type="video/mp4"
                   />
                 </motion.video>
@@ -244,13 +239,13 @@ export default function HomePage() {
                     <p>
                       {weather.daily.time.length
                         ? new Date(weather.daily.time[0]).toLocaleDateString(
-                            "en-US",
-                            {
-                              weekday: "short",
-                              month: "short",
-                              day: "numeric",
-                            }
-                          )
+                          "en-US",
+                          {
+                            weekday: "short",
+                            month: "short",
+                            day: "numeric",
+                          }
+                        )
                         : "Loading..."}
                     </p>
                   </div>
@@ -357,8 +352,6 @@ export default function HomePage() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
-
-

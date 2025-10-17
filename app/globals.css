@@ -1,32 +1,37 @@
 @import "tailwindcss";
 
-
 @theme {
   /* ✅ Custom Breakpoints */
   --breakpoint-xs: 300px;
   --breakpoint-smx: 370px;
 }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
 
 .shining-text {
   color: #fff; /* or any color */
-  text-shadow: 
-    0 0 5px #fff, 
-    0 0 10px #fff, 
-    0 0 20px #fff;
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff;
 }
 
 .text-color {
-  background: linear-gradient(175deg, #dedede 31%, #7A7A7A 99%);
+  background: linear-gradient(175deg, #dedede 31%, #7a7a7a 99%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
 }
 
-
-.btn-bg{
-background: #575353;
-background: linear-gradient(108deg, rgba(87, 83, 83, 1) 0%, rgba(38, 37, 37, 1) 89%);
+.btn-bg {
+  background: #575353;
+  background: linear-gradient(
+    108deg,
+    rgba(87, 83, 83, 1) 0%,
+    rgba(38, 37, 37, 1) 89%
+  );
 }
 
 .video {
