@@ -99,6 +99,7 @@ function getWeatherVideoByTitle(title: string): string {
     if (!input.trim()) return;
     setCity(input);
     fetchWeather(input);
+    setDaily(true)
   }
   const weatherInfo = weather
     ? getWeatherDescription(weather.daily.weathercode[0])
@@ -222,6 +223,7 @@ function getWeatherVideoByTitle(title: string): string {
                 <button
                   type="submit" // important!
                   className="border btn-bg text-white sm:text-lg sm:px-7 px-[9%] xs:text-[13px] text-md py-1 lg:py-2 rounded-4xl"
+                  
                 >
                   Search
                 </button>
@@ -355,3 +357,5 @@ function getWeatherVideoByTitle(title: string): string {
     </div>
   );
 }
+
+
