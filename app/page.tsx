@@ -96,12 +96,11 @@ function getWeatherVideoByTitle(title: string): string {
   const selection = city;
 
   function handleSearch() {
-  if (!input.trim()) return;
-  setCity(input);
-  fetchWeather(input);
-  setDaily(true);
-}
-
+    if (!input.trim()) return;
+    setCity(input);
+    fetchWeather(input);
+    setDaily(true)
+  }
   const weatherInfo = weather
     ? getWeatherDescription(weather.daily.weathercode[0])
     : null;
@@ -358,5 +357,3 @@ function getWeatherVideoByTitle(title: string): string {
     </div>
   );
 }
-
-
