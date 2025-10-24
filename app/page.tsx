@@ -34,6 +34,7 @@ export default function HomePage() {
   const [input, setInput] = useState("");
   const [city, setCity] = useState("Paris");
   const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [isVideoReady, setIsVideoReady] = useState(false);
   const [message, setMessage] = useState<string>("");
   const [daily, setDaily] = useState(true);
   const [bgCode, setBgCode] = useState<number>(0);
@@ -72,6 +73,12 @@ export default function HomePage() {
     }
   }
 
+
+useEffect(() => {
+  setIsVideoReady(false);
+}, [bgCode]);
+
+
   useEffect(() => {
     fetchWeather(city);
   }, [city]);
@@ -98,7 +105,7 @@ function getWeatherVideoByTitle(title: string): string {
   function handleSearch() {
     if (!input.trim()) return;
     setCity(input);
-    fetchWeather(input);
+    // fetchWeather(input);
     setDaily(true)
   }
   const weatherInfo = weather
@@ -120,6 +127,8 @@ function getWeatherVideoByTitle(title: string): string {
           </div>
         </div>
       ) : (
+
+      
         <div className="relative w-full min-h-screen flex justify-center items-center overflow-hidden">
           {/* Blurred background video - UPDATED */}
           <AnimatePresence mode="wait">
@@ -152,35 +161,37 @@ function getWeatherVideoByTitle(title: string): string {
             )}
           </AnimatePresence>
 
+  
           {/* Main content card */}
           <div className="relative w-full lg:w-[88%] lg:my-4 pt-2  min-h-screen lg:rounded-2xl overflow-hidden backdrop-blur-3xl bg-black/30">
             {/* Main video - transition duration adjusted for consistency */}
-            <AnimatePresence mode="wait">
-              {weather && (
-                <motion.video
-                  key={bgCode}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="auto"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{
-                    duration: 1, // Consistent with the blurred background
-                    ease: [0.45, 0, 0.55, 1],
-                  }}
-                  className="absolute inset-0   w-full h-full object-cover lg:rounded-2xl -z-10"
-                >
-                  <source
-                    src={getWeatherVideoByTitle(
-                      weatherInfo?.title ?? "")}
-                    type="video/mp4"
-                  />
-                </motion.video>
-              )}
-            </AnimatePresence>
+                    <AnimatePresence mode="wait">
+            {weather && (
+              <motion.video
+                key={bgCode}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                onLoadedData={() => setIsVideoReady(true)}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: isVideoReady ? 1 : 0 }}
+                exit={{ opacity: 0 }}
+                transition={{
+                  duration: 1,
+                  ease: [0.45, 0, 0.55, 1],
+                }}
+                className="absolute inset-0 w-full h-full object-cover lg:rounded-2xl -z-10"
+              >
+                <source
+                  src={getWeatherVideoByTitle(weatherInfo?.title ?? "")}
+                  type="video/mp4"
+                />
+              </motion.video>
+            )}
+          </AnimatePresence>
+
 
             <div className="flex flex-row justify-between  items-center">
               <div className="flex flex-row  items-center">
@@ -353,7 +364,9 @@ function getWeatherVideoByTitle(title: string): string {
             )}
           </div>
         </div>
-      )}
+          
+      )
+    }
     </div>
   );
 }
